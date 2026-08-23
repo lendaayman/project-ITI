@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './ThemeContext';
+import { LanguageProvider } from './LanguageContext';
 import { FavoritesProvider } from './FavoritesContext';
 import { CartProvider } from './CartContext';
 import './responsive.css';
@@ -96,13 +97,15 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <FavoritesProvider>
-        <CartProvider>
-          <Router basename="/project-ITI">
-            <Layout user={user} handleLogout={handleLogout} setUser={setUser} />
-          </Router>
-        </CartProvider>
-      </FavoritesProvider>
+      <LanguageProvider>
+        <FavoritesProvider>
+          <CartProvider>
+            <Router basename="/project-ITI">
+              <Layout user={user} handleLogout={handleLogout} setUser={setUser} />
+            </Router>
+          </CartProvider>
+        </FavoritesProvider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

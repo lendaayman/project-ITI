@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTheme } from '../ThemeContext';
+import { useLanguage } from '../LanguageContext';
+import LanguageToggle from '../components/LanguageToggle';
 
 export default function Login({ onLoginSuccess }) {
   const { theme: t } = useTheme();
+  const { t: tr } = useLanguage();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errorMsg, setErrorMsg] = useState('');
@@ -15,15 +18,12 @@ export default function Login({ onLoginSuccess }) {
 
     let userObj = null;
 
-    // 1. التحقق من بيانات الأدمن
     if (email === 'admin@serene.co' && password === 'admin123') {
       userObj = { name: 'Admin', email, role: 'admin' };
     } 
-    // 2. التحقق من بيانات المستخدم التجريبي
     else if (email === 'user@serene.co' && password === 'user123') {
       userObj = { name: 'User', email, role: 'user' };
     } 
-    // 3. التحقق من بيانات المستخدم المسجل جديداً
     else {
       const savedEmail = localStorage.getItem('signupEmail');
       const savedPassword = localStorage.getItem('signupPassword');
@@ -35,21 +35,17 @@ export default function Login({ onLoginSuccess }) {
     }
 
     if (userObj) {
-      // حفظ بيانات الجلسة
       localStorage.setItem('userEmail', userObj.email);
       localStorage.setItem('userRole', userObj.role);
       localStorage.setItem('userName', userObj.name);
 
       if (onLoginSuccess) onLoginSuccess(userObj);
-
-      // التوجيه الصحيح حسب نوع الحساب
       navigate(userObj.role === 'admin' ? '/admin' : '/profile');
     } else {
-      setErrorMsg('Invalid email or password.');
+      setErrorMsg(tr('login.invalid'));
     }
   };
 
-  // دالة الدخول كـ Guest
   const handleGuestLogin = () => {
     const guestUser = { name: 'Guest', role: 'guest' };
     localStorage.removeItem('userEmail');
@@ -62,14 +58,17 @@ export default function Login({ onLoginSuccess }) {
 
   return (
     <div style={{ background: t.bg, color: t.text, minHeight: '100vh', padding: '50px 20px', transition: 'all 0.3s ease' }}>
+      <div style={{ maxWidth: '460px', margin: '0 auto 16px', display: 'flex', justifyContent: 'flex-end' }}>
+        <LanguageToggle />
+      </div>
       <main style={{ maxWidth: '460px', margin: '0 auto', textAlign: 'center' }}>
         <div style={{
           width: '56px', height: '56px', background: t.surface, borderRadius: '50%',
           display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', margin: '0 auto 16px'
         }}>🌸</div>
 
-        <h1 style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic', fontSize: '32px', margin: '0 0 8px' }}>Welcome back</h1>
-        <p style={{ color: t.textMuted, fontSize: '14px', marginBottom: '28px' }}>Sign in to your Serene account</p>
+        <h1 style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic', fontSize: '32px', margin: '0 0 8px' }}>{tr('login.welcome')}</h1>
+        <p style={{ color: t.textMuted, fontSize: '14px', marginBottom: '28px' }}>{tr('login.subtitle')}</p>
 
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: '20px', padding: '32px', textAlign: 'left' }}>
           {errorMsg && (
@@ -79,7 +78,7 @@ export default function Login({ onLoginSuccess }) {
           )}
 
           <form onSubmit={handleSubmit}>
-            <label style={{ display: 'block', fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700', color: t.accent, marginBottom: '6px' }}>EMAIL</label>
+            <label style={{ display: 'block', fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700', color: t.accent, marginBottom: '6px' }}>{tr('login.email')}</label>
             <input
               type="email"
               placeholder="you@email.com"
@@ -90,8 +89,8 @@ export default function Login({ onLoginSuccess }) {
             />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-              <label style={{ fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700', color: t.accent }}>PASSWORD</label>
-              <a href="#forgot" style={{ fontSize: '12px', color: t.textMuted, textDecoration: 'none' }}>Forgot?</a>
+              <label style={{ fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700', color: t.accent }}>{tr('login.password')}</label>
+              <a href="#forgot" style={{ fontSize: '12px', color: t.textMuted, textDecoration: 'none' }}>{tr('login.forgot')}</a>
             </div>
             <input
               type="password"
@@ -103,11 +102,10 @@ export default function Login({ onLoginSuccess }) {
             />
 
             <button type="submit" style={{ width: '100%', padding: '12px', background: t.accent, color: '#fff', border: 'none', borderRadius: '25px', fontWeight: '600', cursor: 'pointer', letterSpacing: '0.1em' }}>
-              SIGN IN
+              {tr('login.signIn')}
             </button>
           </form>
 
-          {/* زر دخول الـ Guest */}
           <div style={{ marginTop: '16px', textAlign: 'center' }}>
             <button
               type="button"
@@ -124,19 +122,19 @@ export default function Login({ onLoginSuccess }) {
                 width: '100%'
               }}
             >
-              Continue as Guest ➔
+              {tr('login.guest')}
             </button>
           </div>
 
           <div style={{ marginTop: '20px', padding: '12px', background: t.bg, border: `1px solid ${t.border}`, borderRadius: '10px', fontSize: '12px', color: t.textMuted }}>
-            <strong style={{ display: 'block', marginBottom: '4px', color: t.text }}>Demo credentials:</strong>
+            <strong style={{ display: 'block', marginBottom: '4px', color: t.text }}>{tr('login.demo')}</strong>
             <div>Admin: admin@serene.co / admin123</div>
             <div>User: user@serene.co / user123</div>
           </div>
         </div>
 
         <p style={{ marginTop: '20px', fontSize: '14px', color: t.textMuted }}>
-          Don't have an account? <Link to="/signup" style={{ color: t.accent, fontWeight: '600' }}>Sign up free</Link>
+          {tr('login.noAccount')} <Link to="/signup" style={{ color: t.accent, fontWeight: '600' }}>{tr('login.signUp')}</Link>
         </p>
       </main>
     </div>

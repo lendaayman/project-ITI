@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../ThemeContext';
+import { useLanguage } from '../LanguageContext';
 import { useFavorites } from '../FavoritesContext';
 import { useCart } from '../CartContext';
+import LanguageToggle from './LanguageToggle';
 
 export default function Navbar({ user = null, onLogout }) {
   const { theme: t, toggleTheme } = useTheme();
+  const { t: tr } = useLanguage();
   const { favorites } = useFavorites();
   const { openCart, cartCount } = useCart();
   const location = useLocation();
@@ -18,15 +21,15 @@ export default function Navbar({ user = null, onLogout }) {
 
   const navLinks = isAdmin
     ? [
-        { name: 'DASHBOARD', path: '/admin' },
-        { name: 'PRODUCTS', path: '/admin/products' },
-        { name: 'ORDERS', path: '/admin/orders' },
+        { name: tr('nav.dashboard'), path: '/admin' },
+        { name: tr('nav.products'), path: '/admin/products' },
+        { name: tr('nav.orders'), path: '/admin/orders' },
       ]
     : [
-        { name: 'HOME', path: '/' },
-        { name: 'SHOP', path: '/shop' },
-        { name: 'ABOUT', path: '/about' },
-        { name: 'CONTACT', path: '/contact' },
+        { name: tr('nav.home'), path: '/' },
+        { name: tr('nav.shop'), path: '/shop' },
+        { name: tr('nav.about'), path: '/about' },
+        { name: tr('nav.contact'), path: '/contact' },
       ];
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -117,7 +120,7 @@ export default function Navbar({ user = null, onLogout }) {
               borderRadius: '6px',
               letterSpacing: '0.1em'
             }}>
-              ADMIN
+              {tr('nav.admin')}
             </span>
           )}
         </div>
@@ -128,7 +131,7 @@ export default function Navbar({ user = null, onLogout }) {
             const isActive = location.pathname === link.path;
             return (
               <Link
-                key={link.name}
+                key={link.path}
                 to={link.path}
                 style={{
                   fontFamily: 'Outfit, sans-serif',
@@ -150,6 +153,8 @@ export default function Navbar({ user = null, onLogout }) {
 
         {/* الأدوات والأزرار */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+
+          <LanguageToggle />
           
           {/* زر الثيم */}
           <button
@@ -240,7 +245,7 @@ export default function Navbar({ user = null, onLogout }) {
                     borderRadius: '16px', padding: '6px 12px', fontSize: '12px', cursor: 'pointer'
                   }}
                 >
-                  Logout
+                  {tr('nav.logout')}
                 </button>
               )}
             </div>
@@ -257,7 +262,7 @@ export default function Navbar({ user = null, onLogout }) {
                 fontWeight: '500', cursor: 'pointer', textDecoration: 'none'
               }}
             >
-              Log in
+              {tr('nav.login')}
             </Link>
           )}
 
@@ -278,7 +283,7 @@ export default function Navbar({ user = null, onLogout }) {
             const isActive = location.pathname === link.path;
             return (
               <Link
-                key={link.name}
+                key={link.path}
                 to={link.path}
                 onClick={closeMenu}
                 style={{

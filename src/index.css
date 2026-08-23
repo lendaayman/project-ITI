@@ -10,6 +10,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 html, body, #root {
-  overflow-x: clip; /* أو حذف أي overflow: hidden موجودة */
+  overflow-x: clip;
   min-height: 100vh;
+}
+
+[dir="rtl"] body {
+  font-family: 'Outfit', 'Segoe UI', Tahoma, sans-serif;
 }

@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../ThemeContext';
+import { useLanguage } from '../LanguageContext';
 import { useFavorites } from '../FavoritesContext';
 import ProductCard from '../components/ProductCard';
 
 export default function Favorites({ isLoggedIn: propLoggedIn }) {
   const isLoggedIn = propLoggedIn || !!localStorage.getItem('userEmail');
   const { theme: t } = useTheme();
+  const { t: tr } = useLanguage();
   const { favorites } = useFavorites();
 
   return (
@@ -19,7 +21,7 @@ export default function Favorites({ isLoggedIn: propLoggedIn }) {
           color: t.text,
           marginBottom: '24px'
         }}>
-          My Favorites ({favorites.length})
+          {tr('favorites.title')} ({favorites.length})
         </h1>
 
         {!isLoggedIn ? (
@@ -33,7 +35,7 @@ export default function Favorites({ isLoggedIn: propLoggedIn }) {
             margin: '40px auto'
           }}>
             <p style={{ fontFamily: 'Outfit, sans-serif', color: t.textMuted, fontSize: '15px', marginBottom: '20px' }}>
-              Please log in to view and save your favorite products.
+              {tr('favorites.loginPrompt')}
             </p>
             <Link
               to="/login"
@@ -49,12 +51,12 @@ export default function Favorites({ isLoggedIn: propLoggedIn }) {
                 textDecoration: 'none'
               }}
             >
-              Log in Now
+              {tr('favorites.loginNow')}
             </Link>
           </div>
         ) : favorites.length === 0 ? (
           <p style={{ fontFamily: 'Outfit, sans-serif', color: t.textMuted, fontSize: '15px' }}>
-            No favorite items added yet.
+            {tr('favorites.empty')}
           </p>
         ) : (
           <div style={{

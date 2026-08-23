@@ -2,10 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../CartContext';
 import { useTheme } from '../ThemeContext';
+import { useLanguage } from '../LanguageContext';
 
 export default function CartDrawer() {
   const { cart, isOpen, closeCart, removeFromCart, updateQuantity, checkout } = useCart();
   const { theme: t } = useTheme();
+  const { t: tr, isRTL } = useLanguage();
   const navigate = useNavigate();
 
   if (!isOpen) return null;
@@ -30,7 +32,7 @@ export default function CartDrawer() {
       background: 'rgba(0,0,0,0.5)',
       zIndex: 1000,
       display: 'flex',
-      justifyContent: 'flex-end',
+      justifyContent: isRTL ? 'flex-start' : 'flex-end',
       backdropFilter: 'blur(3px)'
     }}>
       <div style={{
@@ -41,19 +43,17 @@ export default function CartDrawer() {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        boxShadow: '-4px 0 20px rgba(0,0,0,0.15)'
+        boxShadow: isRTL ? '4px 0 20px rgba(0,0,0,0.15)' : '-4px 0 20px rgba(0,0,0,0.15)'
       }}>
         
-        {/* Cart Header */}
         <div style={{ padding: '20px 24px', borderBottom: `1px solid ${t.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h2 style={{ margin: 0, fontFamily: 'Playfair Display, serif', fontSize: '20px' }}>Your Shopping Bag ({cart.length})</h2>
+          <h2 style={{ margin: 0, fontFamily: 'Playfair Display, serif', fontSize: '20px' }}>{tr('cart.title')} ({cart.length})</h2>
           <button onClick={closeCart} style={{ background: 'none', border: 'none', fontSize: '20px', cursor: 'pointer', color: t.text }}>✕</button>
         </div>
 
-        {/* Cart Items */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {cart.length === 0 ? (
-            <p style={{ textAlign: 'center', color: t.textMuted, marginTop: '40px' }}>Your bag is currently empty.</p>
+            <p style={{ textAlign: 'center', color: t.textMuted, marginTop: '40px' }}>{tr('cart.empty')}</p>
           ) : (
             cart.map((item) => (
               <div key={item.id} style={{ display: 'flex', gap: '12px', alignItems: 'center', paddingBottom: '16px', borderBottom: `1px solid ${t.border}` }}>
@@ -75,11 +75,10 @@ export default function CartDrawer() {
           )}
         </div>
 
-        {/* Cart Footer */}
         {cart.length > 0 && (
           <div style={{ padding: '20px 24px', borderTop: `1px solid ${t.border}`, background: t.bg }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', fontWeight: '600', fontSize: '16px' }}>
-              <span>Total:</span>
+              <span>{tr('cart.total')}</span>
               <span style={{ color: t.accent }}>${total}</span>
             </div>
             <button
@@ -96,7 +95,7 @@ export default function CartDrawer() {
                 letterSpacing: '0.1em'
               }}
             >
-              CHECKOUT & PLACE ORDER
+              {tr('cart.checkout')}
             </button>
           </div>
         )}

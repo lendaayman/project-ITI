@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../ThemeContext';
+import { useLanguage } from '../LanguageContext';
 
 import heroImg from '../assets/hero.avif';
 import philosophyImg from '../assets/phylosophy.avif';
@@ -8,19 +9,21 @@ import philosophyImg from '../assets/phylosophy.avif';
 
 export default function Home() {
   const { theme: t } = useTheme();
+  const { t: tr } = useLanguage();
   const [email, setEmail] = useState('');
 
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (email) {
-      alert('Thank you for subscribing!');
+      alert(tr('home.subscribeThanks'));
       setEmail('');
     }
   };
 
+  const reviews = tr('home.reviews');
+
   return (
     <div style={{ backgroundColor: t.bg, color: t.text, transition: 'all 0.3s ease' }}>
-      {/* Hero Section */}
       <div className="container py-5">
         <div className="row align-items-center py-4 g-5">
           <div className="col-12 col-lg-6 hero-text">
@@ -28,13 +31,13 @@ export default function Home() {
               className="badge rounded-pill px-3 py-2 text-uppercase mb-3"
               style={{ backgroundColor: `${t.accent}15`, color: t.accent, letterSpacing: '2px', fontSize: '11px' }}
             >
-              New Collection · Summer 2026
+              {tr('home.badge')}
             </span>
             <h1 className="display-3 fw-bold mb-3" style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', color: t.text, lineHeight: '1.15' }}>
-              Rituals for a <br /> quieter life.
+              {tr('home.heroTitle')}
             </h1>
             <p className="mt-3 mb-4" style={{ maxWidth: '470px', fontSize: '17px', lineHeight: '1.8', color: t.textMuted }}>
-              Carefully sourced, gently made. Botanical ingredients that let your skin breathe and your mind settle.
+              {tr('home.heroDesc')}
             </p>
 
             <div className="d-flex flex-wrap gap-3 mt-4">
@@ -43,7 +46,7 @@ export default function Home() {
                 className="btn text-white rounded-pill px-4 py-3 text-uppercase fw-semibold shadow-sm"
                 style={{ backgroundColor: t.accent, border: 'none', letterSpacing: '1.5px', fontSize: '13px' }}
               >
-                Shop collection
+                {tr('home.shopCollection')}
               </Link>
               <Link
                 to="/about"
@@ -56,25 +59,24 @@ export default function Home() {
                   fontSize: '13px'
                 }}
               >
-                Our story
+                {tr('home.ourStory')}
               </Link>
             </div>
 
-            {/* Stats Row */}
             <div className="d-flex flex-wrap gap-4 mt-5 pt-3 border-top" style={{ borderColor: `${t.border}80` }}>
               <div>
                 <div style={{ color: t.accent, fontFamily: 'Georgia, serif', fontSize: '24px', fontWeight: 'bold' }}>8,400+</div>
-                <div className="text-uppercase" style={{ color: t.textSubtle, fontSize: '11px', letterSpacing: '1.5px' }}>Customers</div>
+                <div className="text-uppercase" style={{ color: t.textSubtle, fontSize: '11px', letterSpacing: '1.5px' }}>{tr('home.customers')}</div>
               </div>
               <div className="border-end" style={{ borderColor: t.border }}></div>
               <div>
                 <div style={{ color: t.accent, fontFamily: 'Georgia, serif', fontSize: '24px', fontWeight: 'bold' }}>100%</div>
-                <div className="text-uppercase" style={{ color: t.textSubtle, fontSize: '11px', letterSpacing: '1.5px' }}>Natural</div>
+                <div className="text-uppercase" style={{ color: t.textSubtle, fontSize: '11px', letterSpacing: '1.5px' }}>{tr('home.natural')}</div>
               </div>
               <div className="border-end" style={{ borderColor: t.border }}></div>
               <div>
                 <div style={{ color: t.accent, fontFamily: 'Georgia, serif', fontSize: '24px', fontWeight: 'bold' }}>B Corp</div>
-                <div className="text-uppercase" style={{ color: t.textSubtle, fontSize: '11px', letterSpacing: '1.5px' }}>Certified</div>
+                <div className="text-uppercase" style={{ color: t.textSubtle, fontSize: '11px', letterSpacing: '1.5px' }}>{tr('home.certified')}</div>
               </div>
             </div>
           </div>
@@ -92,7 +94,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Philosophy Section */}
       <div className="py-5" style={{ backgroundColor: t.bgAlt }}>
         <div className="container py-4">
           <div className="row align-items-center g-5">
@@ -106,42 +107,37 @@ export default function Home() {
             </div>
             <div className="col-12 col-lg-6">
               <p className="text-uppercase fw-semibold mb-2" style={{ color: t.accent, letterSpacing: '3px', fontSize: '12px' }}>
-                Our Philosophy
+                {tr('home.philosophyLabel')}
               </p>
               <h2 style={{ fontFamily: 'Georgia, serif', fontSize: '38px', color: t.text, lineHeight: '1.25' }}>
-                Simplicity is the <br /> highest luxury.
+                {tr('home.philosophyTitle')}
               </h2>
               <p className="my-4" style={{ color: t.textMuted, fontSize: '16px', lineHeight: '1.8' }}>
-                Fewer, better things. Formulated with certified organic botanicals, bottled in sustainable recycled glass.
+                {tr('home.philosophyDesc')}
               </p>
               <Link
                 to="/about"
                 className="btn text-white rounded-pill px-4 py-3 text-uppercase fw-semibold shadow-sm"
                 style={{ backgroundColor: t.accent, border: 'none', letterSpacing: '1px', fontSize: '12px' }}
               >
-                Read Our Story
+                {tr('home.readStory')}
               </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Reviews Section */}
       <div className="py-5" style={{ backgroundColor: t.surface }}>
         <div className="container py-4">
           <div className="text-center mb-5">
             <p className="text-uppercase fw-semibold mb-1" style={{ color: t.accent, letterSpacing: '3px', fontSize: '12px' }}>
-              Testimonials
+              {tr('home.testimonials')}
             </p>
-            <h3 style={{ fontFamily: 'Georgia, serif', color: t.text }}>What people say</h3>
+            <h3 style={{ fontFamily: 'Georgia, serif', color: t.text }}>{tr('home.whatPeopleSay')}</h3>
           </div>
           
           <div className="row g-4">
-            {[
-              { quote: `"My skin has never felt this calm. The face oil genuinely changed my daily routine."`, name: 'Saoirse M.', location: 'Dublin' },
-              { quote: `"The reed diffuser filled my apartment within an hour. Completely natural and addictive."`, name: 'Tariq A.', location: 'Amsterdam' },
-              { quote: `"Received the gift set for my birthday — three months later I've reordered every piece."`, name: 'Yuki T.', location: 'Kyoto' }
-            ].map((review, idx) => (
+            {Array.isArray(reviews) && reviews.map((review, idx) => (
               <div key={idx} className="col-12 col-md-6 col-lg-4">
                 <div
                   className="p-4 rounded-4 h-100 d-flex flex-column justify-content-between shadow-sm"
@@ -166,10 +162,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Newsletter Section */}
-      {/* Newsletter Section */}
 <div className="container pt-5 pb-4 text-center">
-  {/* استايل مخصص للفوكس والبليس هولدر */}
   <style>{`
     .custom-newsletter-input:focus {
       box-shadow: none !important;
@@ -183,9 +176,9 @@ export default function Home() {
   `}</style>
 
   <div className="p-4 p-md-5 rounded-5 shadow-sm" style={{ backgroundColor: t.bgAlt }}>
-    <h3 style={{ fontFamily: 'Georgia, serif', color: t.text, fontSize: '32px' }}>The quiet dispatch</h3>
+    <h3 style={{ fontFamily: 'Georgia, serif', color: t.text, fontSize: '32px' }}>{tr('home.newsletterTitle')}</h3>
     <p className="mb-4" style={{ color: t.textMuted, maxWidth: '500px', margin: '0 auto' }}>
-      Seasonal rituals, new arrivals, and gentle reading — delivered unhurriedly.
+      {tr('home.newsletterDesc')}
     </p>
     <form onSubmit={handleSubscribe} className="d-flex flex-column flex-sm-row gap-2 justify-content-center mt-3">
       <input
@@ -208,7 +201,7 @@ export default function Home() {
         className="btn text-white rounded-pill px-4 py-3 text-uppercase fw-semibold"
         style={{ backgroundColor: t.accent, border: 'none', letterSpacing: '1px', fontSize: '13px' }}
       >
-        Subscribe
+        {tr('home.subscribe')}
       </button>
     </form>
   </div>

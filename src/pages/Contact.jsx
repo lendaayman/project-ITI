@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useTheme } from '../ThemeContext';
+import { useLanguage } from '../LanguageContext';
 
 export default function Contact() {
   const { theme: t } = useTheme();
+  const { t: tr } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', topic: '', message: '' });
 
@@ -18,7 +20,6 @@ export default function Contact() {
 
   return (
     <div className="py-5" style={{ backgroundColor: t.bg, color: t.text, transition: 'all 0.3s ease' }}>
-      {/* استايل مخصص للفوكس والبليس هولدر */}
       <style>{`
         .custom-contact-input:focus {
           box-shadow: none !important;
@@ -33,20 +34,18 @@ export default function Contact() {
 
       <div className="container py-4">
         <div className="row g-5">
-          {/* Details */}
           <div className="col-lg-5">
             <span 
               className="badge rounded-pill px-3 py-2 text-uppercase mb-3"
               style={{ backgroundColor: `${t.accent}15`, color: t.accent, letterSpacing: '2px', fontSize: '11px' }}
             >
-              Get In Touch
+              {tr('contact.badge')}
             </span>
             <h1 className="display-4 mb-3" style={{ fontFamily: 'Georgia, serif', color: t.text }}>
-              We'd love <br />
-              <span style={{ fontStyle: 'italic' }}>to hear from you.</span>
+              {tr('contact.title')}
             </h1>
             <p className="mb-4" style={{ color: t.textMuted, fontSize: '15px', lineHeight: '1.8' }}>
-              Whether it's a question about an ingredient, an order, or feedback — we read every message and reply within one business day.
+              {tr('contact.desc')}
             </p>
 
             <div className="d-flex flex-column gap-3 mb-4">
@@ -55,7 +54,7 @@ export default function Contact() {
                   ✉️
                 </div>
                 <div>
-                  <div className="text-uppercase fw-bold" style={{ color: t.accent, fontSize: '10px', letterSpacing: '1.5px' }}>EMAIL</div>
+                  <div className="text-uppercase fw-bold" style={{ color: t.accent, fontSize: '10px', letterSpacing: '1.5px' }}>{tr('contact.email')}</div>
                   <div style={{ color: t.text, fontSize: '15px' }}>hello@serene.co</div>
                 </div>
               </div>
@@ -65,8 +64,8 @@ export default function Contact() {
                   🕒
                 </div>
                 <div>
-                  <div className="text-uppercase fw-bold" style={{ color: t.accent, fontSize: '10px', letterSpacing: '1.5px' }}>HOURS</div>
-                  <div style={{ color: t.text, fontSize: '15px' }}>Mon – Fri, 9am – 6pm CET</div>
+                  <div className="text-uppercase fw-bold" style={{ color: t.accent, fontSize: '10px', letterSpacing: '1.5px' }}>{tr('contact.hours')}</div>
+                  <div style={{ color: t.text, fontSize: '15px' }}>{tr('contact.hoursValue')}</div>
                 </div>
               </div>
 
@@ -75,20 +74,18 @@ export default function Contact() {
                   📍
                 </div>
                 <div>
-                  <div className="text-uppercase fw-bold" style={{ color: t.accent, fontSize: '10px', letterSpacing: '1.5px' }}>LOCATION</div>
-                  <div style={{ color: t.text, fontSize: '15px' }}>Lisbon, Portugal</div>
+                  <div className="text-uppercase fw-bold" style={{ color: t.accent, fontSize: '10px', letterSpacing: '1.5px' }}>{tr('contact.location')}</div>
+                  <div style={{ color: t.text, fontSize: '15px' }}>{tr('contact.locationValue')}</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Form */}
           <div className="col-lg-7">
             <div
               className="p-4 p-md-5 rounded-5 shadow-sm position-relative overflow-hidden"
               style={{ backgroundColor: t.bgAlt }}
             >
-              {/* Accent Line */}
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', backgroundColor: t.accent }}></div>
 
               {!submitted ? (
@@ -96,12 +93,12 @@ export default function Contact() {
                   <div className="row g-3">
                     <div className="col-md-6">
                       <label className="form-label text-uppercase fw-semibold" style={{ color: t.accent, fontSize: '11px', letterSpacing: '1.5px' }}>
-                        NAME
+                        {tr('contact.name')}
                       </label>
                       <input
                         type="text"
                         required
-                        placeholder="Your name"
+                        placeholder={tr('contact.namePlaceholder')}
                         className="form-control custom-contact-input rounded-3 py-3 px-3"
                         style={{ backgroundColor: t.inputBg, color: t.text, border: `1px solid ${t.border}`, fontSize: '14px' }}
                         value={formData.name}
@@ -110,7 +107,7 @@ export default function Contact() {
                     </div>
                     <div className="col-md-6">
                       <label className="form-label text-uppercase fw-semibold" style={{ color: t.accent, fontSize: '11px', letterSpacing: '1.5px' }}>
-                        EMAIL
+                        {tr('contact.email')}
                       </label>
                       <input
                         type="email"
@@ -126,7 +123,7 @@ export default function Contact() {
 
                   <div className="mt-3">
                     <label className="form-label text-uppercase fw-semibold" style={{ color: t.accent, fontSize: '11px', letterSpacing: '1.5px' }}>
-                      TOPIC
+                      {tr('contact.topic')}
                     </label>
                     <select
                       required
@@ -135,21 +132,21 @@ export default function Contact() {
                       value={formData.topic}
                       onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
                     >
-                      <option value="" disabled style={{ backgroundColor: t.bg, color: t.text }}>Select a topic...</option>
-                      <option value="General Question" style={{ backgroundColor: t.bg, color: t.text }}>General Question</option>
-                      <option value="Order" style={{ backgroundColor: t.bg, color: t.text }}>Order Status</option>
-                      <option value="Product Information" style={{ backgroundColor: t.bg, color: t.text }}>Product Information</option>
+                      <option value="" disabled style={{ backgroundColor: t.bg, color: t.text }}>{tr('contact.selectTopic')}</option>
+                      <option value="General Question" style={{ backgroundColor: t.bg, color: t.text }}>{tr('contact.general')}</option>
+                      <option value="Order" style={{ backgroundColor: t.bg, color: t.text }}>{tr('contact.order')}</option>
+                      <option value="Product Information" style={{ backgroundColor: t.bg, color: t.text }}>{tr('contact.productInfo')}</option>
                     </select>
                   </div>
 
                   <div className="mt-3">
                     <label className="form-label text-uppercase fw-semibold" style={{ color: t.accent, fontSize: '11px', letterSpacing: '1.5px' }}>
-                      MESSAGE
+                      {tr('contact.message')}
                     </label>
                     <textarea
                       required
                       rows={4}
-                      placeholder="Tell us what's on your mind..."
+                      placeholder={tr('contact.messagePlaceholder')}
                       className="form-control custom-contact-input rounded-3 p-3"
                       style={{ backgroundColor: t.inputBg, color: t.text, border: `1px solid ${t.border}`, resize: 'vertical', fontSize: '14px' }}
                       value={formData.message}
@@ -162,7 +159,7 @@ export default function Contact() {
                     className="btn w-100 text-white rounded-pill py-3 text-uppercase mt-4 fw-semibold shadow-sm"
                     style={{ backgroundColor: t.accent, border: 'none', letterSpacing: '2px', fontSize: '13px' }}
                   >
-                    SEND MESSAGE
+                    {tr('contact.send')}
                   </button>
                 </form>
               ) : (
@@ -173,9 +170,9 @@ export default function Contact() {
                   >
                     ✓
                   </div>
-                  <h3 className="mb-2" style={{ fontFamily: 'Georgia, serif', color: t.text }}>Message Sent!</h3>
+                  <h3 className="mb-2" style={{ fontFamily: 'Georgia, serif', color: t.text }}>{tr('contact.sent')}</h3>
                   <p className="mb-4" style={{ color: t.textMuted, maxWidth: '360px', fontSize: '14px', lineHeight: '1.6' }}>
-                    Thank you for reaching out. We've received your message and will respond within 24 hours.
+                    {tr('contact.sentDesc')}
                   </p>
                   <button
                     onClick={handleReset}
@@ -183,7 +180,7 @@ export default function Contact() {
                     className="btn text-white rounded-pill px-4 py-2 text-uppercase fw-semibold"
                     style={{ backgroundColor: t.accent, border: 'none', letterSpacing: '1px', fontSize: '12px' }}
                   >
-                    Send Another Message
+                    {tr('contact.sendAnother')}
                   </button>
                 </div>
               )}

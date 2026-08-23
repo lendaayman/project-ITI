@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useFavorites } from '../FavoritesContext';
 import { useCart } from '../CartContext';
+import { useLanguage } from '../LanguageContext';
 
 export default function ProductCard({ product, theme: t, isLoggedIn: propLoggedIn }) {
   const isLoggedIn = propLoggedIn || !!localStorage.getItem('userEmail');
   const navigate = useNavigate();
   const { toggleFavorite, isFavorite } = useFavorites();
   const { addToCart } = useCart();
+  const { t: tr } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [showLoginNotice, setShowLoginNotice] = useState(false);
@@ -90,7 +92,7 @@ export default function ProductCard({ product, theme: t, isLoggedIn: propLoggedI
         {/* زر المفضلة */}
         <button
           onClick={handleToggleFav}
-          title={favStatus ? "Remove from favorites" : "Add to favorites"}
+          title={favStatus ? tr('product.removeFav') : tr('product.addFav')}
           style={{
             position: 'absolute',
             top: '12px',
@@ -152,7 +154,7 @@ export default function ProductCard({ product, theme: t, isLoggedIn: propLoggedI
               width: '80%'
             }}
           >
-            Please <Link to="/login" style={{ color: t.accent || '#ffb7a8', fontWeight: 'bold' }}>Log in</Link> first!
+            {tr('product.loginPrompt')} <Link to="/login" style={{ color: t.accent || '#ffb7a8', fontWeight: 'bold' }}>{tr('product.loginLink')}</Link> {tr('product.loginSuffix')}
           </div>
         )}
 
@@ -184,7 +186,7 @@ export default function ProductCard({ product, theme: t, isLoggedIn: propLoggedI
               transition: 'all 0.3s ease'
             }}
           >
-            {isAdded ? '✓ ADDED' : 'ADD TO CART'}
+            {isAdded ? tr('product.added') : tr('product.addToCart')}
           </button>
         </div>
       </div>

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../ThemeContext';
+import { useLanguage } from '../LanguageContext';
 
 export default function Footer() {
   const themeContext = useTheme();
   const t = themeContext?.theme || {};
+  const { t: tr } = useLanguage();
 
   return (
     <footer
@@ -26,7 +28,6 @@ export default function Footer() {
           borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
         }}
       >
-        {/* Brand Section */}
         <div style={{ minWidth: '220px' }}>
           <h2
             style={{
@@ -49,45 +50,41 @@ export default function Footer() {
               margin: 0,
             }}
           >
-            Botanical skincare and home rituals for a quieter, more intentional life.
+            {tr('footer.tagline')}
           </p>
         </div>
 
-        {/* SHOP Column */}
         <div>
-          <h4 style={headingStyle}>SHOP</h4>
+          <h4 style={headingStyle}>{tr('footer.shop')}</h4>
           <ul style={listStyle}>
-            <li><Link to="/shop" style={linkStyle}>Face</Link></li>
-            <li><Link to="/shop" style={linkStyle}>Hair</Link></li>
-            <li><Link to="/shop" style={linkStyle}>Home</Link></li>
-            <li><Link to="/shop" style={linkStyle}>Gift Sets</Link></li>
+            <li><Link to="/shop" style={linkStyle}>{tr('footer.face')}</Link></li>
+            <li><Link to="/shop" style={linkStyle}>{tr('footer.hair')}</Link></li>
+            <li><Link to="/shop" style={linkStyle}>{tr('footer.home')}</Link></li>
+            <li><Link to="/shop" style={linkStyle}>{tr('footer.giftSets')}</Link></li>
           </ul>
         </div>
 
-        {/* COMPANY Column */}
         <div>
-          <h4 style={headingStyle}>COMPANY</h4>
+          <h4 style={headingStyle}>{tr('footer.company')}</h4>
           <ul style={listStyle}>
-            <li><Link to="/about" style={linkStyle}>About</Link></li>
-            <li><Link to="/contact" style={linkStyle}>Contact</Link></li>
-            <li><a href="#sustainability" style={linkStyle}>Sustainability</a></li>
-            <li><a href="#careers" style={linkStyle}>Careers</a></li>
+            <li><Link to="/about" style={linkStyle}>{tr('footer.about')}</Link></li>
+            <li><Link to="/contact" style={linkStyle}>{tr('footer.contact')}</Link></li>
+            <li><a href="#sustainability" style={linkStyle}>{tr('footer.sustainability')}</a></li>
+            <li><a href="#careers" style={linkStyle}>{tr('footer.careers')}</a></li>
           </ul>
         </div>
 
-        {/* SUPPORT Column */}
         <div>
-          <h4 style={headingStyle}>SUPPORT</h4>
+          <h4 style={headingStyle}>{tr('footer.support')}</h4>
           <ul style={listStyle}>
-            <li><a href="#shipping" style={linkStyle}>Shipping</a></li>
-            <li><a href="#returns" style={linkStyle}>Returns</a></li>
-            <li><a href="#faq" style={linkStyle}>FAQ</a></li>
-            <li><a href="#privacy" style={linkStyle}>Privacy</a></li>
+            <li><a href="#shipping" style={linkStyle}>{tr('footer.shipping')}</a></li>
+            <li><a href="#returns" style={linkStyle}>{tr('footer.returns')}</a></li>
+            <li><a href="#faq" style={linkStyle}>{tr('footer.faq')}</a></li>
+            <li><a href="#privacy" style={linkStyle}>{tr('footer.privacy')}</a></li>
           </ul>
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div
         style={{
           maxWidth: '1200px',
@@ -103,13 +100,13 @@ export default function Footer() {
           fontFamily: 'Outfit, sans-serif',
         }}
       >
-        <span>© 2026 Serene. All rights reserved.</span>
+        <span>{tr('footer.copyright')}</span>
         <div>
-          <a href="#privacy" style={bottomLinkStyle}>Privacy</a>
+          <a href="#privacy" style={bottomLinkStyle}>{tr('footer.privacy')}</a>
           <span style={{ margin: '0 6px' }}>·</span>
-          <a href="#terms" style={bottomLinkStyle}>Terms</a>
+          <a href="#terms" style={bottomLinkStyle}>{tr('footer.terms')}</a>
           <span style={{ margin: '0 6px' }}>·</span>
-          <a href="#cookies" style={bottomLinkStyle}>Cookies</a>
+          <a href="#cookies" style={bottomLinkStyle}>{tr('footer.cookies')}</a>
         </div>
       </div>
     </footer>

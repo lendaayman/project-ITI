@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTheme } from '../ThemeContext';
+import { useLanguage } from '../LanguageContext';
+import LanguageToggle from '../components/LanguageToggle';
 
 export default function SignUp() {
   const { theme: t } = useTheme();
+  const { t: tr } = useLanguage();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [errorMsg, setErrorMsg] = useState('');
@@ -14,10 +17,10 @@ export default function SignUp() {
 
     const { name, email, password, confirmPassword } = formData;
 
-    if (!name.trim()) return setErrorMsg('Please enter your name.');
-    if (!email.includes('@')) return setErrorMsg('Please enter a valid email.');
-    if (password.length < 6) return setErrorMsg('Password must be at least 6 characters.');
-    if (password !== confirmPassword) return setErrorMsg('Passwords do not match.');
+    if (!name.trim()) return setErrorMsg(tr('signup.errName'));
+    if (!email.includes('@')) return setErrorMsg(tr('signup.errEmail'));
+    if (password.length < 6) return setErrorMsg(tr('signup.errPassword'));
+    if (password !== confirmPassword) return setErrorMsg(tr('signup.errMatch'));
 
     localStorage.setItem('signupName', name.trim());
     localStorage.setItem('signupEmail', email.trim());
@@ -28,14 +31,17 @@ export default function SignUp() {
 
   return (
     <div style={{ background: t.bg, color: t.text, minHeight: '100vh', padding: '50px 20px', transition: 'all 0.3s ease' }}>
+      <div style={{ maxWidth: '460px', margin: '0 auto 16px', display: 'flex', justifyContent: 'flex-end' }}>
+        <LanguageToggle />
+      </div>
       <main style={{ maxWidth: '460px', margin: '0 auto', textAlign: 'center' }}>
         <div style={{
           width: '56px', height: '56px', background: t.surface, borderRadius: '50%',
           display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', margin: '0 auto 16px'
         }}>🌸</div>
 
-        <h1 style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic', fontSize: '32px', margin: '0 0 8px' }}>Begin your ritual</h1>
-        <p style={{ color: t.textMuted, fontSize: '14px', marginBottom: '28px' }}>Create your Serene account</p>
+        <h1 style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic', fontSize: '32px', margin: '0 0 8px' }}>{tr('signup.title')}</h1>
+        <p style={{ color: t.textMuted, fontSize: '14px', marginBottom: '28px' }}>{tr('signup.subtitle')}</p>
 
         <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: '20px', padding: '32px', textAlign: 'left' }}>
           {errorMsg && (
@@ -45,7 +51,7 @@ export default function SignUp() {
           )}
 
           <form onSubmit={handleSubmit}>
-            <label style={{ display: 'block', fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700', color: t.accent, marginBottom: '6px' }}>FULL NAME</label>
+            <label style={{ display: 'block', fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700', color: t.accent, marginBottom: '6px' }}>{tr('signup.fullName')}</label>
             <input
               type="text"
               placeholder="Emma Vance"
@@ -55,7 +61,7 @@ export default function SignUp() {
               style={{ width: '100%', padding: '12px 14px', marginBottom: '16px', border: `1px solid ${t.border}`, borderRadius: '10px', background: t.bg, color: t.text, boxSizing: 'border-box' }}
             />
 
-            <label style={{ display: 'block', fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700', color: t.accent, marginBottom: '6px' }}>EMAIL</label>
+            <label style={{ display: 'block', fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700', color: t.accent, marginBottom: '6px' }}>{tr('signup.email')}</label>
             <input
               type="email"
               placeholder="you@email.com"
@@ -65,7 +71,7 @@ export default function SignUp() {
               style={{ width: '100%', padding: '12px 14px', marginBottom: '16px', border: `1px solid ${t.border}`, borderRadius: '10px', background: t.bg, color: t.text, boxSizing: 'border-box' }}
             />
 
-            <label style={{ display: 'block', fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700', color: t.accent, marginBottom: '6px' }}>PASSWORD</label>
+            <label style={{ display: 'block', fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700', color: t.accent, marginBottom: '6px' }}>{tr('signup.password')}</label>
             <input
               type="password"
               placeholder="••••••••"
@@ -75,7 +81,7 @@ export default function SignUp() {
               style={{ width: '100%', padding: '12px 14px', marginBottom: '16px', border: `1px solid ${t.border}`, borderRadius: '10px', background: t.bg, color: t.text, boxSizing: 'border-box' }}
             />
 
-            <label style={{ display: 'block', fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700', color: t.accent, marginBottom: '6px' }}>CONFIRM PASSWORD</label>
+            <label style={{ display: 'block', fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700', color: t.accent, marginBottom: '6px' }}>{tr('signup.confirmPassword')}</label>
             <input
               type="password"
               placeholder="••••••••"
@@ -86,13 +92,13 @@ export default function SignUp() {
             />
 
             <button type="submit" style={{ width: '100%', padding: '12px', background: t.accent, color: '#fff', border: 'none', borderRadius: '25px', fontWeight: '600', cursor: 'pointer', letterSpacing: '0.1em' }}>
-              CREATE ACCOUNT
+              {tr('signup.create')}
             </button>
           </form>
         </div>
 
         <p style={{ marginTop: '20px', fontSize: '14px', color: t.textMuted }}>
-          Already have an account? <Link to="/login" style={{ color: t.accent, fontWeight: '600' }}>Sign in</Link>
+          {tr('signup.hasAccount')} <Link to="/login" style={{ color: t.accent, fontWeight: '600' }}>{tr('signup.signIn')}</Link>
         </p>
       </main>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useTheme } from '../ThemeContext';
+import { useLanguage } from '../LanguageContext';
 import { PRODUCTS as INITIAL_PRODUCTS } from '../data/products';
 import ProductCard from '../components/ProductCard';
 
@@ -7,10 +8,10 @@ const CATEGORIES = ['ALL', 'SERUMS & OILS', 'MOISTURIZERS', 'CLEANSERS', 'TONERS
 
 export default function Shop() {
   const { theme: t } = useTheme();
+  const { t: tr } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('ALL');
   const [sortBy, setSortBy] = useState('featured');
 
-  // جلب المنتجات المحدثة من localStorage
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -22,7 +23,6 @@ export default function Shop() {
     }
   }, []);
 
-  // الفلترة بناءً على قائمة المنتجات الحية
   const filteredProducts = useMemo(() => {
     let result = [...products];
 
@@ -39,9 +39,10 @@ export default function Shop() {
     return result;
   }, [products, activeCategory, sortBy]);
 
+  const categoryLabels = tr('shop.categories');
+
   return (
     <div style={{ background: t.bg, minHeight: '100vh', transition: 'background 0.3s' }}>
-      {/* Header Banner */}
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 24px 40px' }}>
         <p style={{
           fontFamily: 'Outfit, sans-serif',
@@ -51,7 +52,7 @@ export default function Shop() {
           color: t.accent,
           marginBottom: '12px'
         }}>
-          SUMMER 2026
+          {tr('shop.season')}
         </p>
         <h1 style={{
           fontFamily: 'Playfair Display, serif',
@@ -60,7 +61,7 @@ export default function Shop() {
           color: t.text,
           margin: '0 0 16px'
         }}>
-          The Collection
+          {tr('shop.title')}
         </h1>
         <p style={{
           fontFamily: 'Outfit, sans-serif',
@@ -70,11 +71,10 @@ export default function Shop() {
           lineHeight: '1.7',
           margin: 0
         }}>
-          Botanical formulas for daily calm. Each piece chosen for what it does, not how it looks on a shelf.
+          {tr('shop.desc')}
         </p>
       </div>
 
-      {/* Filter & Sort Bar */}
       <div style={{
         position: 'sticky',
         top: '65px',
@@ -113,7 +113,7 @@ export default function Shop() {
                   transition: 'all 0.2s'
                 }}
               >
-                {cat}
+                {categoryLabels?.[cat] ?? cat}
               </button>
             ))}
           </div>
@@ -133,14 +133,13 @@ export default function Shop() {
               cursor: 'pointer'
             }}
           >
-            <option value="featured">Featured</option>
-            <option value="low-to-high">Price: Low to High</option>
-            <option value="high-to-low">Price: High to Low</option>
+            <option value="featured">{tr('shop.sortFeatured')}</option>
+            <option value="low-to-high">{tr('shop.sortLowHigh')}</option>
+            <option value="high-to-low">{tr('shop.sortHighLow')}</option>
           </select>
         </div>
       </div>
 
-      {/* Product Grid */}
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 24px 80px' }}>
         <p style={{
           fontFamily: 'Outfit, sans-serif',
@@ -148,7 +147,7 @@ export default function Shop() {
           color: t.textMuted,
           marginBottom: '24px'
         }}>
-          {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}
+          {filteredProducts.length} {filteredProducts.length === 1 ? tr('shop.product') : tr('shop.products')}
         </p>
 
         <div style={{
