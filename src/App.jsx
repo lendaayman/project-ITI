@@ -98,7 +98,7 @@ export default function App() {
     <ThemeProvider>
       <FavoritesProvider>
         <CartProvider>
-          <Router basename="/project-ssITI">
+          <Router basename="/project-ITI">
             <Layout user={user} handleLogout={handleLogout} setUser={setUser} />
           </Router>
         </CartProvider>
