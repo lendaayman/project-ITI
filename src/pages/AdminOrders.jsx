@@ -5,10 +5,7 @@ import AdminLayout from './AdminLayout';
 export default function AdminOrders() {
   const { theme: t } = useTheme();
   const [searchTerm, setSearchTerm] = useState('');
-  const [orders, setOrders] = useState([]);
-
-  // جلب الطلبات الفعلية من localStorage
-  useEffect(() => {
+  const [orders, setOrders] = useState([]);  useEffect(() => {
     const savedOrders = JSON.parse(localStorage.getItem('userOrders') || '[]');
     setOrders(savedOrders);
   }, []);

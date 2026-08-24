@@ -16,7 +16,6 @@ export default function AdminLayout({ children }) {
     <div style={{ background: t.bg, color: t.text, minHeight: 'calc(100vh - 70px)', transition: 'all 0.3s ease' }}>
       <div style={{ display: 'flex', maxWidth: '1280px', margin: '0 auto', padding: '40px 20px', gap: '40px' }}>
         
-        {/* الـ Sidebar الفرعي */}
         <aside style={{ width: '200px', flexShrink: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {menuItems.map((item) => {
@@ -51,7 +50,6 @@ export default function AdminLayout({ children }) {
           </div>
         </aside>
 
-        {/* محتوى الصفحة الحالية */}
         <main style={{ flex: 1 }}>
           {children}
         </main>

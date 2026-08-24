@@ -6,9 +6,7 @@ import { useCart } from '../CartContext';
 import { PRODUCTS } from '../data/products';
 import ProductCard from '../components/ProductCard';
 
-export default function ProductDetail({ isLoggedIn: propLoggedIn }) {
-  // التحقق من حالة المستخدم (مع مراعاة الـ Guest)
-  const savedRole = localStorage.getItem('userRole');
+export default function ProductDetail({ isLoggedIn: propLoggedIn }) {  const savedRole = localStorage.getItem('userRole');
   const isGuestRole = savedRole === 'guest';
   const isLoggedIn = propLoggedIn || (!!localStorage.getItem('userEmail') && !isGuestRole);
 
@@ -25,10 +23,7 @@ export default function ProductDetail({ isLoggedIn: propLoggedIn }) {
   const [showLoginNotice, setShowLoginNotice] = useState(false);
 
   const favStatus = isFavorite(product.id);
-  const relatedProducts = PRODUCTS.filter((p) => String(p.id) !== String(product.id)).slice(0, 3);
-
-  // منع إضافة السلة للـ Guest
-  const handleAddToCart = () => {
+  const relatedProducts = PRODUCTS.filter((p) => String(p.id) !== String(product.id)).slice(0, 3);  const handleAddToCart = () => {
     if (!isLoggedIn) {
       setShowLoginNotice(true);
       setTimeout(() => setShowLoginNotice(false), 3500);
@@ -40,10 +35,7 @@ export default function ProductDetail({ isLoggedIn: propLoggedIn }) {
     setTimeout(() => {
       setIsAdded(false);
     }, 2000);
-  };
-
-  // منع إضافة المفضلة للـ Guest
-  const handleToggleFavorite = () => {
+  };  const handleToggleFavorite = () => {
     if (!isLoggedIn) {
       setShowLoginNotice(true);
       setTimeout(() => setShowLoginNotice(false), 3500);
@@ -51,14 +43,10 @@ export default function ProductDetail({ isLoggedIn: propLoggedIn }) {
     }
 
     toggleFavorite(product);
-  };
-
-  // ... باقي كود المكون يظل كما هو
-
+  };
   return (
     <div style={{ background: t.bg, minHeight: '100vh', paddingBottom: '80px', transition: 'background 0.3s' }}>
       
-      {/* Breadcrumb Navigation */}
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '24px 24px 12px' }}>
         <div style={{
           display: 'flex',
@@ -76,7 +64,6 @@ export default function ProductDetail({ isLoggedIn: propLoggedIn }) {
         </div>
       </div>
 
-      {/* Main Layout Container */}
       <div style={{
         maxWidth: '1200px',
         margin: '0 auto',
@@ -87,7 +74,6 @@ export default function ProductDetail({ isLoggedIn: propLoggedIn }) {
         alignItems: 'start'
       }}>
         
-        {/* Left: Product Image Display */}
         <div style={{
           position: 'relative',
           width: '100%',
@@ -137,7 +123,6 @@ export default function ProductDetail({ isLoggedIn: propLoggedIn }) {
           </button>
         </div>
 
-        {/* Right: Product Details & Actions */}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
@@ -313,7 +298,6 @@ export default function ProductDetail({ isLoggedIn: propLoggedIn }) {
             </button>
           </div>
 
-          {/* تنبيه تسجيل الدخول */}
           {showLoginNotice && (
             <p style={{
               margin: '0 0 20px 0',
@@ -392,7 +376,6 @@ export default function ProductDetail({ isLoggedIn: propLoggedIn }) {
         </div>
       </div>
 
-      {/* You Might Also Like */}
       <div style={{ maxWidth: '1200px', margin: '40px auto 0', padding: '0 24px' }}>
         <h2 style={{
           fontFamily: 'Playfair Display, serif',

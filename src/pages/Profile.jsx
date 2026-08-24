@@ -7,10 +7,7 @@ export default function Profile({ user, onLogout, setUser }) {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('account');
   const [isEditing, setIsEditing] = useState(false);
-  const [editForm, setEditForm] = useState({ name: user?.name || '', email: user?.email || '' });
-
-  // جلب الطلبات المخزنة dynamic من localStorage
-  const orders = JSON.parse(localStorage.getItem('userOrders') || '[]');
+  const [editForm, setEditForm] = useState({ name: user?.name || '', email: user?.email || '' });  const orders = JSON.parse(localStorage.getItem('userOrders') || '[]');
 
   const handleSaveEdit = () => {
     if (!editForm.name.trim() || !editForm.email.includes('@')) {
@@ -34,7 +31,6 @@ export default function Profile({ user, onLogout, setUser }) {
 
   return (
     <div style={{ background: t.bg, color: t.text, minHeight: '80vh', paddingBottom: '60px' }}>
-      {/* Header البروفايل */}
       <section style={{ background: t.surface || '#fbe3d8', borderBottom: `1px solid ${t.border}` }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 24px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
@@ -62,7 +58,6 @@ export default function Profile({ user, onLogout, setUser }) {
           </button>
         </div>
 
-        {/* التبويبات */}
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '30px 24px 0', display: 'flex', gap: '32px' }}>
           <button
             onClick={() => setActiveTab('account')}
@@ -89,7 +84,6 @@ export default function Profile({ user, onLogout, setUser }) {
         </div>
       </section>
 
-      {/* تفاصيل التبويب النشط */}
       <main style={{ maxWidth: '800px', margin: '40px auto 0', padding: '0 24px' }}>
         {activeTab === 'account' ? (
           <div>

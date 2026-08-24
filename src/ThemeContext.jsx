@@ -40,15 +40,10 @@ const dark = {
 
 const Ctx = createContext();
 
-export function ThemeProvider({ children }) {
-  // قراءة الثيم المحفوظ عند التحميل
-  const [isDark, setIsDark] = useState(() => {
+export function ThemeProvider({ children }) {  const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('isDark');
     return saved !== null ? JSON.parse(saved) : false;
-  });
-
-  // حفظ الثيم الجديد فور تغييره
-  useEffect(() => {
+  });  useEffect(() => {
     localStorage.setItem('isDark', JSON.stringify(isDark));
   }, [isDark]);
 

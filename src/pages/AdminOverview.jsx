@@ -24,7 +24,6 @@ export default function AdminOverview() {
 
   return (
     <AdminLayout>
-      {/* كروت الإحصائيات */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
         {[
           { title: 'REVENUE', value: '$18,430', badge: '+12% vs last month', isPos: true },
@@ -40,7 +39,6 @@ export default function AdminOverview() {
         ))}
       </div>
 
-      {/* الرسم البياني */}
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: '16px', padding: '24px', marginBottom: '24px' }}>
         <div style={{ fontSize: '11px', letterSpacing: '0.08em', color: t.textMuted, fontWeight: '700', marginBottom: '20px' }}>REVENUE - LAST 7 DAYS</div>
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: '16px', height: '120px', paddingBottom: '10px' }}>
@@ -62,7 +60,6 @@ export default function AdminOverview() {
         </div>
       </div>
 
-      {/* جدول أحدث الطلبات */}
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: '16px', padding: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
           <div style={{ fontSize: '11px', letterSpacing: '0.08em', color: t.textMuted, fontWeight: '700' }}>RECENT ORDERS</div>

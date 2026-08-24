@@ -4,58 +4,35 @@ import { PRODUCTS as INITIAL_PRODUCTS } from '../data/products';
 import AdminLayout from './AdminLayout';
 
 export default function AdminProducts() {
-  const { theme: t } = useTheme();
-
-  // جلب المنتجات من localStorage أو استخدام القائمة الابتدائية
-  const [products, setProducts] = useState(() => {
+  const { theme: t } = useTheme();  const [products, setProducts] = useState(() => {
     const saved = localStorage.getItem('adminProducts');
     return saved ? JSON.parse(saved) : INITIAL_PRODUCTS;
   });
 
   const [editingProduct, setEditingProduct] = useState(null);
-  const [isAddingNew, setIsAddingNew] = useState(false);
-
-  // حالة التراجع عن الحذف (Undo)
-  const [lastDeleted, setLastDeleted] = useState(null);
-  const [showUndoToast, setShowUndoToast] = useState(false);
-
-  // تحديث localStorage عند أي تغيير
-  useEffect(() => {
+  const [isAddingNew, setIsAddingNew] = useState(false);  const [lastDeleted, setLastDeleted] = useState(null);
+  const [showUndoToast, setShowUndoToast] = useState(false);  useEffect(() => {
     localStorage.setItem('adminProducts', JSON.stringify(products));
-  }, [products]);
-
-  // دالة الحذف مع تفعيل زر Undo
-  const handleDeleteProduct = (productToDelete) => {
+  }, [products]);  const handleDeleteProduct = (productToDelete) => {
     const index = products.findIndex((p) => p.id === productToDelete.id);
     const updated = products.filter((p) => p.id !== productToDelete.id);
     
     setProducts(updated);
     setLastDeleted({ product: productToDelete, index });
-    setShowUndoToast(true);
-
-    // إخفاء إشعار التراجع تلقائياً بعد 6 ثوانٍ
-    setTimeout(() => {
+    setShowUndoToast(true);    setTimeout(() => {
       setShowUndoToast(false);
     }, 6000);
-  };
-
-  // دالة التراجع عن الحذف
-  const handleUndoDelete = () => {
+  };  const handleUndoDelete = () => {
     if (!lastDeleted) return;
     const restored = [...products];
     restored.splice(lastDeleted.index, 0, lastDeleted.product);
     setProducts(restored);
     setLastDeleted(null);
     setShowUndoToast(false);
-  };
-
-  // دالة حفظ المنتج (إضافة جديد أو تعديل)
-  const handleSaveProduct = (e) => {
+  };  const handleSaveProduct = (e) => {
     e.preventDefault();
     
-    if (isAddingNew) {
-      // تجهيز بيانات المنتج الجديد بنفس خصائص الكروت المعتمدة في Shop
-      const newProd = {
+    if (isAddingNew) {      const newProd = {
         id: Date.now(),
         name: editingProduct.name || 'New Botanical Item',
         category: editingProduct.category || 'SERUMS & OILS',
@@ -83,7 +60,6 @@ export default function AdminProducts() {
 
   return (
     <AdminLayout>
-      {/* الهيدر وزر إضافة منتج جديد */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
         <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: '32px', margin: 0 }}>Products</h1>
         <button
@@ -109,7 +85,6 @@ export default function AdminProducts() {
         </button>
       </div>
 
-      {/* جدول المنتجات */}
       <div style={{ background: t.surface, border: `1px solid ${t.border}`, borderRadius: '16px', padding: '16px 24px' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
@@ -154,7 +129,6 @@ export default function AdminProducts() {
         </table>
       </div>
 
-      {/* إشعار وزر التراجع (Undo Toast) */}
       {showUndoToast && lastDeleted && (
         <div style={{
           position: 'fixed', bottom: '24px', right: '24px', background: '#1e293b', color: '#fff',
@@ -174,7 +148,6 @@ export default function AdminProducts() {
         </div>
       )}
 
-      {/* النافذة المنبثقة للإضافة والتعديل */}
       {editingProduct && (
         <div style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,

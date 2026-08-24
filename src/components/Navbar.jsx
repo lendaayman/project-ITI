@@ -45,7 +45,6 @@ export default function Navbar({ user = null, onLogout }) {
       borderBottom: `1px solid ${t.border}`,
       transition: 'all 0.3s ease',
     }}>
-      {/* تضمين استعلامات الميديا للتحكم بالظهور على الموبايل */}
       <style>{`
         .desktop-nav {
           display: flex;
@@ -72,9 +71,7 @@ export default function Navbar({ user = null, onLogout }) {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        {/* اللوجو وزر الهامبرغر للموبايل */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          {/* زر قائمة الموبايل */}
           <button
             onClick={toggleMenu}
             className="mobile-toggle-btn"
@@ -125,7 +122,6 @@ export default function Navbar({ user = null, onLogout }) {
           )}
         </div>
 
-        {/* روابط التنقل للشاشات الكبيرة */}
         <nav className="desktop-nav">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path;
@@ -151,12 +147,10 @@ export default function Navbar({ user = null, onLogout }) {
           })}
         </nav>
 
-        {/* الأدوات والأزرار */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
 
           <LanguageToggle />
           
-          {/* زر الثيم */}
           <button
             onClick={toggleTheme}
             title="Theme toggle"
@@ -178,7 +172,6 @@ export default function Navbar({ user = null, onLogout }) {
 
           {!isAdmin && (
             <>
-              {/* المفضلة */}
               <Link
                 to="/favorites"
                 onClick={closeMenu}
@@ -197,7 +190,6 @@ export default function Navbar({ user = null, onLogout }) {
                 )}
               </Link>
 
-              {/* السلة */}
               <button
                 onClick={() => { openCart(); closeMenu(); }}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: t.text, padding: '6px', position: 'relative' }}
@@ -219,7 +211,6 @@ export default function Navbar({ user = null, onLogout }) {
             </>
           )}
 
-          {/* البروفايل أو زر التسجيل */}
           {isLoggedIn ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Link
@@ -269,7 +260,6 @@ export default function Navbar({ user = null, onLogout }) {
         </div>
       </div>
 
-      {/* القائمة المنبثقة للشاشات الصغيرة */}
       {isMenuOpen && (
         <div style={{
           background: t.surface || t.bg,

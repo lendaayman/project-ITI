@@ -89,7 +89,6 @@ export default function ProductCard({ product, theme: t, isLoggedIn: propLoggedI
           </span>
         )}
 
-        {/* زر المفضلة */}
         <button
           onClick={handleToggleFav}
           title={favStatus ? tr('product.removeFav') : tr('product.addFav')}
@@ -117,7 +116,6 @@ export default function ProductCard({ product, theme: t, isLoggedIn: propLoggedI
           </svg>
         </button>
 
-        {/* صورة المنتج */}
         <img
           src={product.image}
           alt={product.name}
@@ -133,7 +131,6 @@ export default function ProductCard({ product, theme: t, isLoggedIn: propLoggedI
           }}
         />
 
-        {/* رسالة تنبيه للـ Guest */}
         {showLoginNotice && (
           <div
             onClick={(e) => e.stopPropagation()}
@@ -158,7 +155,6 @@ export default function ProductCard({ product, theme: t, isLoggedIn: propLoggedI
           </div>
         )}
 
-        {/* زر الإضافة للسلة */}
         <div style={{
           position: 'absolute',
           bottom: '12px',
